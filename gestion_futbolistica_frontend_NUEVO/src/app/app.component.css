@@ -1,0 +1,67 @@
+/* ============================================================================
+   APP COMPONENT - TOOLBAR CON TEMA FC BARCELONA
+   ============================================================================ */
+
+/* Toolbar con gradiente Barça */
+mat-toolbar {
+    background: linear-gradient(135deg, #004D98 0%, #A50044 100%) !important;
+    color: white !important;
+    box-shadow: 0 4px 20px rgba(0, 77, 152, 0.5) !important;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+mat-toolbar h1 {
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Agregar emoji de trofeo antes del título */
+mat-toolbar h1::before {
+    content: '🏆';
+    font-size: 28px;
+    animation: rotate 3s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(15deg); }
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+/* Botones del navbar */
+mat-toolbar button {
+    margin-left: 12px;
+    color: white !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    padding: 8px 16px;
+}
+
+mat-toolbar button:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+/* Efecto activo para botón seleccionado */
+mat-toolbar button.active {
+    background: rgba(252, 191, 73, 0.3) !important;
+    border-bottom: 3px solid #FCBF49;
+}
+
+/* Contenedor principal con padding */
+.main-content {
+    padding: 24px;
+    min-height: calc(100vh - 64px);
+}

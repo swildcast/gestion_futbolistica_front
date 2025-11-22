@@ -1,0 +1,20 @@
+<mat-toolbar>
+  <h1>{{ title }}</h1>
+  <span class="spacer"></span>
+  <button mat-button routerLink="/equipos" routerLinkActive="active">
+    <mat-icon>sports_soccer</mat-icon>
+    Equipos
+  </button>
+  <button mat-button routerLink="/jugadores" routerLinkActive="active">
+    <mat-icon>person</mat-icon>
+    Jugadores
+  </button>
+  <button mat-button routerLink="/partidos" routerLinkActive="active">
+    <mat-icon>event</mat-icon>
+    Partidos
+  </button>
+</mat-toolbar>
+
+<div class="main-content">
+  <router-outlet></router-outlet>
+</div>

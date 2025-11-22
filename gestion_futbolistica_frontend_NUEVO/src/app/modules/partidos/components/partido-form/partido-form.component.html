@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="header">
+        <h1>{{ isEditMode ? 'Editar Partido' : 'Nuevo Partido' }}</h1>
+    </div>
+
+    <form [formGroup]="partidoForm" (ngSubmit)="onSubmit()" class="form-container">
+
+        <!-- CAMPO: EQUIPO LOCAL -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Equipo Local</mat-label>
+            <mat-select formControlName="equipoLocalId">
+                <mat-option *ngFor="let equipo of equipos" [value]="equipo.id">
+                    {{ equipo.nombre }}
+                </mat-option>
+            </mat-select>
+            <mat-error>{{ getErrorMessage('equipoLocalId') }}</mat-error>
+        </mat-form-field>
+
+        <!-- CAMPO: EQUIPO VISITANTE -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Equipo Visitante</mat-label>
+            <mat-select formControlName="equipoVisitanteId">
+                <mat-option *ngFor="let equipo of equipos" [value]="equipo.id">
+                    {{ equipo.nombre }}
+                </mat-option>
+            </mat-select>
+            <mat-error>{{ getErrorMessage('equipoVisitanteId') }}</mat-error>
+        </mat-form-field>
+
+        <!-- CAMPO: FECHA -->
+        <!-- CONCEPTO: input type="datetime-local" para fecha y hora -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Fecha del Partido</mat-label>
+            <input matInput type="datetime-local" formControlName="fecha">
+            <mat-error>{{ getErrorMessage('fecha') }}</mat-error>
+        </mat-form-field>
+
+        <!-- CAMPO: ESTADIO -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Estadio</mat-label>
+            <input matInput formControlName="estadio" placeholder="Ej: Santiago Bernabéu">
+            <mat-error>{{ getErrorMessage('estadio') }}</mat-error>
+        </mat-form-field>
+
+        <!-- CAMPO: RESULTADO (Opcional) -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Resultado (Opcional)</mat-label>
+            <input matInput formControlName="resultado" placeholder="Ej: 2-1">
+            <mat-hint>Dejar vacío si el partido no se ha jugado</mat-hint>
+        </mat-form-field>
+
+        <!-- BOTONES -->
+        <div class="button-row">
+            <button mat-raised-button color="primary" type="submit" [disabled]="partidoForm.invalid || isSubmitting">
+                <mat-icon>save</mat-icon>
+                {{ isEditMode ? 'Actualizar' : 'Crear' }}
+            </button>
+
+            <button mat-raised-button type="button" (click)="cancel()">
+                <mat-icon>cancel</mat-icon>
+                Cancelar
+            </button>
+        </div>
+    </form>
+</div>

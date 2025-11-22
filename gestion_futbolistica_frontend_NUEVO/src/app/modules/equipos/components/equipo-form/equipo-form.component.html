@@ -1,0 +1,85 @@
+<!-- ============================================================================
+     VISTA HTML - FORMULARIO DE EQUIPOS
+     ============================================================================
+     Este formulario usa REACTIVE FORMS con Angular Material
+     
+     PREGUNTA COMÚN: ¿Qué es [formGroup] y formControlName?
+     RESPUESTA: 
+       - [formGroup]="equipoForm" vincula el FormGroup del TS con el <form>
+       - formControlName="nombre" vincula cada input con su FormControl
+     ============================================================================ -->
+
+<div class="container">
+    <div class="header">
+        <!-- CONCEPTO: Mostramos texto diferente según el modo (crear/editar) -->
+        <h1>{{ isEditMode ? 'Editar Equipo' : 'Nuevo Equipo' }}</h1>
+    </div>
+
+    <!-- CONCEPTO: [formGroup] vincula el formulario con equipoForm del TS
+       (ngSubmit) se ejecuta cuando se envía el formulario -->
+    <form [formGroup]="equipoForm" (ngSubmit)="onSubmit()" class="form-container">
+
+        <!-- ========== CAMPO: NOMBRE ========== -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nombre del Equipo</mat-label>
+            <!-- formControlName vincula este input con el FormControl 'nombre' -->
+            <input matInput formControlName="nombre" placeholder="Ej: Real Madrid">
+            <!-- mat-error se muestra automáticamente si hay errores -->
+            <mat-error *ngIf="hasError('nombre', 'required')">
+                El nombre es obligatorio
+            </mat-error>
+            <mat-error *ngIf="hasError('nombre', 'minlength')">
+                {{ getErrorMessage('nombre') }}
+            </mat-error>
+        </mat-form-field>
+
+        <!-- ========== CAMPO: CIUDAD ========== -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Ciudad</mat-label>
+            <input matInput formControlName="ciudad" placeholder="Ej: Madrid">
+            <mat-error>{{ getErrorMessage('ciudad') }}</mat-error>
+        </mat-form-field>
+
+        <!-- ========== CAMPO: ESTADIO ========== -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Estadio</mat-label>
+            <input matInput formControlName="estadio" placeholder="Ej: Santiago Bernabéu">
+            <mat-error>{{ getErrorMessage('estadio') }}</mat-error>
+        </mat-form-field>
+
+        <!-- ========== CAMPO: AÑO DE FUNDACIÓN ========== -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Año de Fundación</mat-label>
+            <!-- type="number" hace que el input solo acepte números -->
+            <input matInput type="number" formControlName="anioFundacion" placeholder="Ej: 1902">
+            <mat-error>{{ getErrorMessage('anioFundacion') }}</mat-error>
+        </mat-form-field>
+
+        <!-- ========== BOTONES ========== -->
+        <div class="button-row">
+            <!-- CONCEPTO: [disabled] deshabilita el botón si el formulario es inválido
+           o si se está enviando (para evitar doble submit) -->
+            <button mat-raised-button color="primary" type="submit" [disabled]="equipoForm.invalid || isSubmitting">
+                <mat-icon>save</mat-icon>
+                {{ isEditMode ? 'Actualizar' : 'Crear' }}
+            </button>
+
+            <!-- type="button" evita que este botón envíe el formulario -->
+            <button mat-raised-button type="button" (click)="cancel()">
+                <mat-icon>cancel</mat-icon>
+                Cancelar
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- ============================================================================
+     CONCEPTOS CLAVE:
+     ============================================================================
+     1. [formGroup] vincula el FormGroup
+     2. formControlName vincula cada campo
+     3. (ngSubmit) maneja el envío del formulario
+     4. mat-error para mensajes de error
+     5. [disabled] para deshabilitar botones condicionalmente
+     6. Validación automática de Angular Material
+     ============================================================================ -->

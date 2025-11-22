@@ -1,0 +1,66 @@
+<!-- ============================================================================
+     FORMULARIO DE JUGADORES
+     ============================================================================
+     CONCEPTO ADICIONAL: mat-select para dropdowns (Foreign Keys)
+     ============================================================================ -->
+
+<div class="container">
+    <div class="header">
+        <h1>{{ isEditMode ? 'Editar Jugador' : 'Nuevo Jugador' }}</h1>
+    </div>
+
+    <form [formGroup]="jugadorForm" (ngSubmit)="onSubmit()" class="form-container">
+
+        <!-- CAMPO: NOMBRE -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nombre del Jugador</mat-label>
+            <input matInput formControlName="nombre" placeholder="Ej: Lionel Messi">
+            <mat-error>{{ getErrorMessage('nombre') }}</mat-error>
+        </mat-form-field>
+
+        <!-- CAMPO: POSICIÓN (Dropdown estático) -->
+        <!-- CONCEPTO: mat-select para listas desplegables -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Posición</mat-label>
+            <mat-select formControlName="posicion">
+                <!-- *ngFor itera sobre el array de posiciones -->
+                <mat-option *ngFor="let pos of posiciones" [value]="pos">
+                    {{ pos }}
+                </mat-option>
+            </mat-select>
+            <mat-error>{{ getErrorMessage('posicion') }}</mat-error>
+        </mat-form-field>
+
+        <!-- CAMPO: EDAD -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Edad</mat-label>
+            <input matInput type="number" formControlName="edad" placeholder="Ej: 25">
+            <mat-error>{{ getErrorMessage('edad') }}</mat-error>
+        </mat-form-field>
+
+        <!-- CAMPO: EQUIPO (Dropdown dinámico - Foreign Key) -->
+        <!-- CONCEPTO: Dropdown con datos del backend -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Equipo</mat-label>
+            <mat-select formControlName="idEquipo">
+                <mat-option *ngFor="let equipo of equipos" [value]="equipo.id">
+                    {{ equipo.nombre }}
+                </mat-option>
+            </mat-select>
+            <mat-error>{{ getErrorMessage('idEquipo') }}</mat-error>
+        </mat-form-field>
+
+        <!-- BOTONES -->
+        <div class="button-row">
+            <button mat-raised-button color="primary" type="submit" [disabled]="jugadorForm.invalid || isSubmitting">
+                <mat-icon>save</mat-icon>
+                {{ isEditMode ? 'Actualizar' : 'Crear' }}
+            </button>
+
+            <button mat-raised-button type="button" (click)="cancel()">
+                <mat-icon>cancel</mat-icon>
+                Cancelar
+            </button>
+        </div>
+    </form>
+</div>
